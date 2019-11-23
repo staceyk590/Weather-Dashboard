@@ -27,40 +27,42 @@
             <div class="col-sm-3 sidenav hidden-xs">
               <h3>Search for a City:</h3>
               <ul class="nav nav-pills nav-stacked">
-                <form>
+                      <form>
                         <div class="input-group">
                           <input id="cityInput" type="text" class="form-control">
                           <div class="input-group-btn">
-                            <button class="btn btn-default" type="submit">
+                            <button class="btn btn-default" id="searchBtnId" type="submit">
                               <i class="glyphicon glyphicon-search"></i>
                             </button>
                           </div>
                         </div>
                       </form>
-
-                <div class="form-group">
-                        <input type="text" class="form-control"id="search-term" placeholder="Austin">
+                      
+                      <div class="form-group">
+                        <!--<input type="text" class="form-control"id="search-term" placeholder="Austin">
                         <input type="text" class="form-control"id="search-term" placeholder="Chicago">
                         <input type="text" class="form-control"id="search-term" placeholder="New York">
                         <input type="text" class="form-control"id="search-term" placeholder="Orlando">
                         <input type="text" class="form-control"id="search-term" placeholder="San Francisco">
                         <input type="text" class="form-control"id="search-term" placeholder="Seattle">
                         <input type="text" class="form-control"id="search-term" placeholder="Denver">
-                        <input type="text" class="form-control"id="search-term" placeholder="Atlanta">
+                        <input type="text" class="form-control"id="search-term" placeholder="Atlanta">-->
                       </div>
               </ul><br>
             </div>
+          
             <br>
             
             <div class="col-sm-9">
               <div class="well">
                 <p><div class="city"></div>
                   <div class="date"></div>
-                  <div class="iconimage"></div>
+                  <div class="iconimage"><img id="weathericon" /></div>
                   <div class="temperature"></div>
                   <div class="humidity"></div>
                   <div class="windspeed"></div>
                   <div class="uvindex"></div></p>
+                  
               </div>
 
               <h3> 5-Day Forecast:</h3>
@@ -73,6 +75,7 @@
                               <h4>Day 1</h4>
                               <p>
                                 <div class="humidity2"></div>
+                                <div class="city"></div></p> 
                                 
                              </p> 
                             </div>
@@ -80,25 +83,26 @@
                 <div class="col-sm-2">
                   <div class="well">
                     <h4>Day 2</h4>
-                    <p><div id="forecast"></div></p> 
+                    <p>
+                      <div class="city"></div></p> 
                   </div>
                 </div>
                 <div class="col-sm-2">
                   <div class="well">
                     <h4>Day 3</h4>
-                    <p></p> 
+                    <p><div class="city"></div></p> 
                   </div>
                 </div>
                 <div class="col-sm-2">
                   <div class="well">
                     <h4>Day 4</h4>
-                    <p></p> 
+                    <p><div class="city"></div></p> 
                   </div>
                 </div>
                 <div class="col-sm-2">
                   <div class="well">
                     <h4>Day 5</h4>
-                    <p></p> 
+                    <p><div class="city"></div></p> 
                   </div>
                 </div>
               </div>

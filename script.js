@@ -4,6 +4,7 @@
 $(".btn").on("click", function (event) {
 console.log("clicked");
 
+
 event.preventDefault();
 
 var APIKey = "f7e59dfdb8a18df761fb7dffa1196d82";
@@ -15,7 +16,7 @@ var queryURL = "https://api.openweathermap.org/data/2.5/weather?" +
 console.log(queryURL);
 
 var queryURL2 = "https://api.openweathermap.org/data/2.5/forecast?" + 
-"q="+ city +"&units=imperial&appid=" + APIKey2;
+"q="+ city +"&lat=${lat}&lon=${lon}&appid=" + APIKey2;
 
 //var queryURL2 = "http://api.openweathermap.org/data/2.5/forecast?appid=APIKey2&lat=${lat}&lon=${lon}&units=metric"
 //var queryURL2 = "http://api.openweathermap.org/data/2.5/forecast?" + "q="+ city +"id=524901&APPID=" + APIKey;
@@ -39,24 +40,25 @@ console.log(queryURL2);
       }).then(function(response) {
         console.log(queryURL2);
         
-        //$("#forecast").text(JSON.stringify(response));
+        //("#forecast").text(JSON.stringify(response));
         
         console.log(response);
+
+        //for (let index = 0; index < response.length; index++) {
         console.log("City: " + response.city.name);
-        console.log("Date: " + response.main.date);
+        $(".city").html("City:" +response.city.name);
+        console.log("Date: " + response.list[0].dt_txt);
         console.log("IconImage: " + response.weather.icon);
-        console.log("Temperature (F): " + response.main.temp);
-        console.log("Humidity: " + response.main.humidity);
+        console.log("Temperature (F): " + response.list[0].main.temp);
+        $(".temp").html("Temp:" +response.list.main.temp);
+        console.log("Humidity: " + response.list.main.humidity);
         console.log("Wind Speed: " + response.wind.speed);
-        console.log("UV Index: " + response.main.uvindex);
-
-      
-        $("#forecast").text("Humidity: " + response.main.humidity);
-    
-
-    
+          console.log("UV Index: " + response.main.uvindex);//}
 
         
+      
+        //$("#forecast").text("Humidity: " + response.main.humidity);
+  
       });
 
 
@@ -64,11 +66,16 @@ console.log(queryURL2);
       $(".city").html("<h1>" + response.name + " Weather Details</h1>");
 //adding html code between this tag
       $(".date").text("Date: " + response.main.date);
-      $(".iconimage").text("Icon Image: " + response.weather.icon);
+      // $(".iconimage").text("Icon Image: " + response.weather.icon);
       $(".temperature").text("Temperature (F) " + response.main.temp);
       $(".humidity").text("Humidity: " + response.main.humidity);
       $(".windspeed").text("Wind Speed: " + response.wind.speed);
       $(".uvindex").text("UV Index: " + response.main.uvindex);
+      var imgSrc="http://openweathermap.org/img/wn/" + response.weather[0].icon + ".png"
+
+      $("#weathericon").attr("src", imgSrc);
+
+
       
       
 
@@ -79,11 +86,50 @@ console.log(queryURL2);
       // Log the data in the console as well
       console.log("City: " + response.name);
       console.log("Date: " + response.main.date);
-      console.log("IconImage: " + response.weather.icon);
+      console.log("IconImage: " + response.weather[0].icon);
       console.log("Temperature (F): " + response.main.temp);
       console.log("Humidity: " + response.main.humidity);
       console.log("Wind Speed: " + response.wind.speed);
       console.log("UV Index: " + response.main.uvindex);
+    });
+
+    var historyValue = JSON.parse(localStorage.getItem("searchHistoryFromLocalStorage"));
+    if(historyValue != null){
+      console.log(historyValue);
+      for(var i=0; i < historyValue.length; i++){
+        var item = historyValue[i];
+        console.log(item);
+        var p = $("<p>").text(item); 
+        console.log(p);   //<p>test2</p>
+        $(".form-group").append(p);
+      }
+    }
+    //and display the value from localstorage
+
+    //when user click on search button
+    $("#searchBtnId").on("click", function(){
+     var searchText = $("#cityInput").val();
+    console.log(searchText);
+
+      //display that text below
+      var p = $("<p>").text(searchText);    //<p>test2</p>
+     $(".form-group").append(p);
+
+      //clear the input tag
+     $("#cityInput").val("");
+      
+    var historyFromLocalStorage = JSON.parse(localStorage.getItem("searchHistoryFromLocalStorage"));
+     //is it not null
+
+    if(historyFromLocalStorage == null){
+       var historyArray = [];
+        historyArray.push(searchText);  //["test"]
+        //add that text to localstorage array
+       localStorage.setItem("searchHistoryFromLocalStorage", JSON.stringify(historyArray));
+     }else{
+        historyFromLocalStorage.push(searchText);
+        localStorage.setItem("searchHistoryFromLocalStorage", JSON.stringify(historyFromLocalStorage))
+    }
     });
 
     //$("#find-movie").on("click", function(event) {
